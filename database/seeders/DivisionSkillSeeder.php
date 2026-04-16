@@ -82,19 +82,19 @@ class DivisionSkillSeeder extends Seeder
                 'Manual Testing', 'Selenium', 'Postman', 'Jira', 'Test Case Writing',
                 'Regression Testing', 'API Testing', 'Cypress', 'Performance Testing', 'Agile'
             ],
-            'Product Manager' => [
-                'Product Roadmap', 'Agile', 'Scrum', 'Figma', 'User Story',
-                'Jira', 'Market Research', 'OKR', 'Stakeholder Management', 'Data Analysis'
+            'Desain Grafis' => [
+                'Graphic Design Fundamentals', 'Adobe Photoshop', 'Adobe Illustrator', 'Figma', 'Canva',
+                'UI/UX Design', 'Typography', 'Color Theory', 'Branding', 'Layout Design', 'Vector Design'
             ],
-            'IT Project Manager' => [
-                'Project Planning', 'Agile', 'Scrum', 'Jira', 'Risk Management',
-                'Budgeting', 'Stakeholder Management', 'MS Project', 'Kanban', 'PMBOK'
+            'Digital Marketing' => [
+                'Digital Marketing Fundamentals', 'Social Media Management', 'Content Creation', 'SEO', 'Google Analytics',
+                'Email Marketing', 'PPC Advertising', 'Copywriting', 'Brand Strategy', 'Market Research'
             ],
         ];
 
         foreach ($data as $divisionName => $skills) {
             // Insert atau ambil division
-            $divisionId = DB::table('divisions')->insertGetId([
+                $divisionId = DB::table('divisions')->insertGetId([
                 'name'       => $divisionName,
                 'created_at' => now(),
                 'updated_at' => now(),
