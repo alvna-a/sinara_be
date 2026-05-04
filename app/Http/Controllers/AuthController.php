@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -23,7 +22,7 @@ class AuthController extends Controller
             'name'     => $request->name,
             'nim'      => $request->nim,
             'email'    => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'role'     => $request->role,
         ]);
 
@@ -43,13 +42,9 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Cari user berdasarkan NIM, lalu attempt dengan email-nya
-        $user = User::where('nim', $request->nim)->first();
+        $credentials = $request->only('nim', 'password');
 
-        if (!$user || !$token = JWTAuth::attempt([
-            'email'    => $user->email,
-            'password' => $request->password,
-        ])) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json([
                 'message' => 'NIM atau password salah'
             ], 401);
@@ -58,7 +53,7 @@ class AuthController extends Controller
         return response()->json([
             'message'      => 'Login berhasil',
             'access_token' => $token,
-            'user'         => $user,
+            'user'         => auth()->user(),
         ]);
     }
 

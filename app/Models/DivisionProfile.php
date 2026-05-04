@@ -10,8 +10,11 @@ class DivisionProfile extends Model
         'division_id',
         'combined_skills',
         'combined_experience',
+        'combined_jobdesk',
+        'combined_reasons',
         'feedback_count',
         'avg_suitability',
+        'penalty_score',
     ];
 
     public function division()

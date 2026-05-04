@@ -15,6 +15,8 @@ class Feedback extends Model
         'skills_used',
         'experience',
         'suitability',
+        'rating_reason',
+        'jobdesk',
         'duration',
         'location',
     ];
