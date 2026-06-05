@@ -56,5 +56,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/companies',        [CompanyController::class, 'adminIndex']);
         Route::put('/companies/{id}',   [CompanyController::class, 'update']);
         Route::delete('/companies/{id}',[CompanyController::class, 'destroy']);
+
+        Route::get('/nlp/health',    [RecommendationController::class, 'health']);
+        Route::post('/nlp/retrain',  [RecommendationController::class, 'triggerRetrain']);
     });
 });
