@@ -19,7 +19,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    // Simpan atau update profil (onboarding)
+    // Simpan atau update profil (phone, photo, dll) → tabel user_profiles
     public function update(Request $request)
     {
         $request->validate([
@@ -38,7 +38,7 @@ class ProfileController extends Controller
         if ($request->hasFile('photo')) {
             // Hapus foto lama kalau ada
             if ($user->profile && $user->profile->photo) {
-                Storage::delete($user->profile->photo);
+                Storage::disk('public')->delete($user->profile->photo);
             }
             $data['photo'] = $request->file('photo')->store('photos', 'public');
         }
@@ -52,6 +52,32 @@ class ProfileController extends Controller
         return response()->json([
             'message' => 'Profil berhasil disimpan',
             'data'    => $profile,
+        ]);
+    }
+
+    // Update nama & email → tabel users
+    public function updateAccount(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+        ], [
+            'name.required'  => 'Nama lengkap wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email'    => 'Format email tidak valid.',
+            'email.unique'   => 'Email sudah digunakan oleh akun lain.',
+        ]);
+
+        $user->update([
+            'name'  => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return response()->json([
+            'message' => 'Akun berhasil diperbarui',
+            'data'    => $user->fresh(),
         ]);
     }
 }

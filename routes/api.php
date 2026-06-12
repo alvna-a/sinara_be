@@ -27,6 +27,7 @@ Route::middleware('auth:api')->group(function () {
     // Profil
     Route::get('/profile',  [ProfileController::class, 'show']);
     Route::post('/profile', [ProfileController::class, 'update']);
+    Route::put('/account', [ProfileController::class, 'updateAccount']);
 
     // Skill
     Route::get('/skills',               [SkillController::class, 'index']);
