@@ -46,7 +46,7 @@ class CompanyController extends Controller
             return response()->json(['message' => 'Akses ditolak'], 403);
         }
 
-        $companies = Company::with('divisions')
+        $companies = Company::with(['divisions.feedbacks'])
             ->orderBy('is_verified')
             ->orderBy('name')
             ->get();
