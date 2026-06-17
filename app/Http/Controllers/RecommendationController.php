@@ -86,7 +86,10 @@ class RecommendationController extends Controller
 
         return response()->json([
             'message' => 'Rekomendasi berhasil dihasilkan',
-            'data'    => collect($saved)->load('division.company'),
+            'data'    => Recommendation::where('user_id', $user->id)
+                ->with('division.company')
+                ->orderByDesc('similarity_score')
+                ->get(),
         ]);
     }
 
