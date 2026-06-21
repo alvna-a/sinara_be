@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('nim')->nullable();
             $table->string('program_studi')->nullable();
             $table->string('semester')->nullable();
+            $table->enum('internship_override', ['belum_magang', 'sudah_magang'])->nullable();
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
             $table->timestamps();

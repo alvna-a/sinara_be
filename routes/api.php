@@ -8,6 +8,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\RecommendationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DataMahasiswaController;
 
 // ===== PUBLIC =====
 Route::post('/register', [AuthController::class, 'register']);
@@ -57,6 +58,12 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/companies',        [CompanyController::class, 'adminIndex']);
         Route::put('/companies/{id}',   [CompanyController::class, 'update']);
         Route::delete('/companies/{id}',[CompanyController::class, 'destroy']);
+
+        // Data Mahasiswa management
+        Route::get('/data-mahasiswa',                   [DataMahasiswaController::class, 'index']);
+        Route::get('/data-mahasiswa/{id}',               [DataMahasiswaController::class, 'show']);
+        Route::post('/data-mahasiswa/{id}/switch-role',  [DataMahasiswaController::class, 'switchRole']);
+        Route::post('/data-mahasiswa/{id}/reset-role',   [DataMahasiswaController::class, 'resetRoleOverride']);
 
         Route::get('/nlp/health',    [RecommendationController::class, 'health']);
         Route::post('/nlp/retrain',  [RecommendationController::class, 'triggerRetrain']);
