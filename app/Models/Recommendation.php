@@ -9,6 +9,9 @@ class Recommendation extends Model
     protected $fillable = [
         'user_id',
         'division_id',
+        'session_key',        // ← baru
+        'session_label',      // ← baru
+        'passion_division',   // ← baru
         'similarity_score',
         'suitability_avg',
         'experience_summary',
@@ -18,7 +21,7 @@ class Recommendation extends Model
     protected function casts(): array
     {
         return [
-            'matched_skills' => 'array', // otomatis decode JSON jadi array
+            'matched_skills' => 'array',
         ];
     }
 

@@ -17,6 +17,7 @@ Route::post('/login',    [AuthController::class, 'login']);
 // Company publik (untuk preview tanpa login)
 Route::get('/companies',      [CompanyController::class, 'index']);
 Route::get('/companies/{id}', [CompanyController::class, 'show']);
+Route::get('/companies/{companyId}/divisions/{divisionId}', [DivisionController::class, 'show']);
 
 // ===== PROTECTED =====
 Route::middleware('auth:api')->group(function () {
@@ -44,8 +45,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/feedbacks/my', [FeedbackController::class, 'myFeedbacks']);
 
     // Rekomendasi — Mahasiswa Calon (M2)
-    Route::post('/recommendations',    [RecommendationController::class, 'generate']);
-    Route::get('/recommendations/my',  [RecommendationController::class, 'myRecommendations']);
+    Route::post('/recommendations',                     [RecommendationController::class, 'generate']);
+    Route::get('/recommendations/sessions',             [RecommendationController::class, 'mySessions']);
+    Route::get('/recommendations/sessions/{sessionKey}',[RecommendationController::class, 'showSession']);
+    Route::get('/recommendations/{id}',                 [RecommendationController::class, 'show']);
 
     // ===== ADMIN =====
     Route::prefix('admin')->group(function () {
